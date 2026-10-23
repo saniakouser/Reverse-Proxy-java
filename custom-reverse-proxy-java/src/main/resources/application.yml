@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: custom-reverse-proxy
+
+proxy:
+  timeout-seconds: 10
+  routes:
+    - id: users
+      path-prefix: /users
+      upstreams:
+        - http://localhost:8081
+        - http://localhost:8082
+    - id: orders
+      path-prefix: /orders
+      upstreams:
+        - http://localhost:8083

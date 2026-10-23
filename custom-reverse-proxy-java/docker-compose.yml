@@ -1,0 +1,31 @@
+services:
+  proxy:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend-a
+      - backend-b
+    environment:
+      # For Docker Compose, use service names instead of localhost.
+      SPRING_CONFIG_IMPORT: optional:classpath:/application-docker.yml
+
+  backend-a:
+    image: node:22-alpine
+    working_dir: /app
+    volumes:
+      - ./backend.js:/app/backend.js:ro
+    command: ["node", "backend.js"]
+    environment:
+      PORT: "8081"
+      NAME: backend-A
+
+  backend-b:
+    image: node:22-alpine
+    working_dir: /app
+    volumes:
+      - ./backend.js:/app/backend.js:ro
+    command: ["node", "backend.js"]
+    environment:
+      PORT: "8082"
+      NAME: backend-B

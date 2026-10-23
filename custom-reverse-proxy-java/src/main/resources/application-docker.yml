@@ -1,0 +1,11 @@
+proxy:
+  routes:
+    - id: users
+      path-prefix: /users
+      upstreams:
+        - http://backend-a:8081
+        - http://backend-b:8082
+    - id: orders
+      path-prefix: /orders
+      upstreams:
+        - http://backend-a:8081
